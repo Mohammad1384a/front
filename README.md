@@ -1,69 +1,52 @@
-# React + TypeScript + Vite
+# سامانه مدیریت حقوق و دستمزد
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+این مخزن شامل کدهای بخش رابط کاربری سامانه‌ی مدیریت حقوق و دستمزد است که با استفاده از **React**، **TypeScript** و ابزار **Vite** پیاده‌سازی شده‌است. در این برنامه می‌توانید اطلاعات کارکنان را ثبت و فهرست پرداختی‌های آنها را مدیریت کنید.
 
-Currently, two official plugins are available:
+## امکانات اصلی
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- نمایش فهرست کارکنان و افزودن مورد جدید
+- ثبت و ویرایش رکوردهای حقوق برای هر کارمند
+- جست‌وجوی پرداخت‌ها در بازه‌ی زمانی دلخواه
+- حذف رکوردهای ثبت‌شده در صورت نیاز
 
-## Expanding the ESLint configuration
+## پیش‌نیازها
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+برای راه‌اندازی پروژه به آخرین نسخه‌ی پایدار Node.js و npm نیاز خواهید داشت. پس از نصب Node.js، ادامه‌ی مراحل به صورت زیر است:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. دریافت مخزن: 
+   ```bash
+   git clone <repository-url>
+   cd front
+   ```
+2. نصب وابستگی‌ها:
+   ```bash
+   npm install
+   ```
+3. اجرای محیط توسعه:
+   ```bash
+   npm run dev
+   ```
+   با اجرای این دستور برنامه روی آدرس `http://localhost:5173` در دسترس خواهد بود.
+4. بررسی کدها از نظر استانداردهای تعریف شده:
+   ```bash
+   npm run lint
+   ```
+5. ساخت نسخه‌ی نهایی و پیش‌نمایش آن:
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ساختار پوشه‌ها
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+کدهای اصلی در پوشه‌ی `src` قرار دارند. مهم‌ترین زیربخش‌ها عبارت‌اند از:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `pages/` شامل صفحات اصلی برنامه نظیر فهرست کارکنان و صفحه‌ی حقوق هر کارمند.
+- `components/` دارای اجزای کوچک‌تر مانند فرم ثبت حقوق.
+- `assets/` برای نگهداری فایل‌های ثابت (تصاویر و ...).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+ورودی اصلی برنامه فایل `src/main.tsx` است و مسیریابی در فایل `src/App.tsx` انجام می‌شود.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ارتباط با سرور
+
+برای دریافت و ذخیره‌ی اطلاعات از درخواست‌های HTTP به مسیر `/api` استفاده می‌شود. بنابراین لازم است بخش پشتیبان (Backend) جداگانه‌ای در همین دامنه فعال باشد تا درخواست‌ها را پردازش کند.
